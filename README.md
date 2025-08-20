@@ -169,5 +169,5 @@ When you run `uv run demo-qa-agent.py`, you'll see:
 ### Getting Help
 
 - **Kernel Documentation**: [docs.onkernel.com](https://docs.onkernel.com)
-- **Browser Use SDK**: [github.com/gregpr07/browser-use](https://github.com/gregpr07/browser-use)
+- **Browser Use SDK**: [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use)
 - **Anthropic API**: [docs.anthropic.com](https://docs.anthropic.com)
