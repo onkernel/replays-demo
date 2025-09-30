@@ -8,6 +8,8 @@ An intelligent quality assurance system that uses AI agents to automatically tes
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![Kernel Replays Youtube Video Screenshot](https://github.com/user-attachments/assets/369bfca3-9f52-425a-b754-dab8d7e47f33)](https://www.youtube.com/watch?v=eFXD75U60Bc)
+
 ---
 
 ## 💡 Why This Matters
