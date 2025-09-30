@@ -1,34 +1,80 @@
 # 🕵️ AI-Powered E-commerce QA Demo
 
-An intelligent quality assurance system that uses AI agents to automatically test e-commerce websites, powered by [Kernel](https://onkernel.com) and [Browser Use](https://github.com/gregpr07/browser-use).
+> **Watch AI agents autonomously test your e-commerce site and generate reviewable browser replays**
 
-## 🎯 What This Does
+An intelligent quality assurance system that uses AI agents to automatically test e-commerce websites, powered by [Kernel](https://onkernel.com) and [Browser Use](https://github.com/browser-use/browser-use).
 
-This demo showcases automated QA testing of e-commerce websites using AI agents that can:
+[![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://kernel.onkernel.com)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- **Product Page Assessment**: Navigate to product pages, evaluate if product images match descriptions, and add items to cart
-- **Cart Page Validation**: Check cart pages for specific promotional banners and offers
-- **Generate Review Links**: Create browser replay recordings of all agent actions for detailed review
+---
 
-Each test phase is recorded as a separate browser replay, allowing you to see exactly what the AI agents did and how they reached their conclusions.
+## 💡 Why This Matters
 
-## 🚨 Important Prerequisites & Limitations
+Traditional QA testing is manual, time-consuming, and error-prone. This demo shows how AI agents can:
 
-**⚠️ This is a demonstration template, not a plug-and-play solution.** To reproduce this functionality, you'll need:
+- ✅ **Automate visual testing** - Agents "see" and evaluate product images like a human QA tester would
+- 🔄 **Execute complex workflows** - Navigate multi-step user journeys autonomously
+- 📹 **Provide reviewable evidence** - Every action is recorded as a browser replay
+- 🎯 **Scale effortlessly** - Test hundreds of products in the time it takes to test one manually
 
-### Required Infrastructure
-- **Kernel Platform Access**: Active Kernel account with API access ([docs.onkernel.com](https://docs.onkernel.com))
-- **Anthropic API Key**: For Claude AI agent functionality ([console.anthropic.com](https://console.anthropic.com))
-- **Development Shopify Store**: A test store with password protection enabled
-- **Store Password**: Access credentials for your development store
+This is the future of QA: AI agents that think, see, and validate like your best QA engineer.
 
-### Customization Requirements
-- **Agent Tasks Must Be Customized**: The current tasks are specific to our test store and promotion types
-- **Product URLs**: You'll need to update product URLs to match your test store
-- **Expected Behaviors**: Modify the agent instructions based on what you want to test
-- **Assessment Criteria**: Adapt the pass/fail criteria to your specific QA requirements
+## 🎯 What This Demo Does
 
-**This demo is designed to show the approach and framework - you will need to customize the agent tasks, URLs, and validation logic for your specific use case.**
+This application showcases **dual-phase AI-powered QA testing** on e-commerce sites:
+
+### Phase 1: Product Page Intelligence 🛍️
+- **Navigate** to product URLs autonomously
+- **Evaluate** if product images accurately match title descriptions
+- **Interact** with the page to add items to cart
+- **Report** PASS/FAIL verdict with detailed assessment
+
+### Phase 2: Cart Page Validation 🛒
+- **Navigate** to cart using the site's natural UI flow
+- **Search** for promotional banners and special offers
+- **Validate** specific promotion text (e.g., "$20 off when you spend $100")
+- **Report** PASS/FAIL verdict with findings
+
+### Phase 3: Replay Generation 🎥
+Each testing phase is automatically recorded as a **browser replay**, allowing you to:
+- See exactly what the AI agent saw
+- Review the agent's decision-making process
+- Debug failures by watching agent interactions
+- Share results with your team
+
+## ✨ Key Features
+
+| Feature | Description |
+|---------|-------------|
+| 🤖 **Autonomous AI Agents** | Claude-powered agents that understand context and make intelligent decisions |
+| 🎬 **Browser Replays** | Every test generates a reviewable recording via Kernel's replay system |
+| 🔍 **Visual Understanding** | AI agents can "see" and evaluate images, layouts, and visual elements |
+| 📊 **Structured Results** | Clean PASS/FAIL verdicts with detailed assessment narratives |
+| 🔐 **Secure Credentials** | Built-in sensitive data handling for store passwords and API keys |
+| ⚡ **Async Execution** | Non-blocking API calls with polling for efficient testing workflows |
+| 🎯 **Multi-Phase Testing** | Sequential test phases with independent replay recordings |
+
+## 🚨 Important: This is a Template
+
+**⚠️ This is a demonstration template, not a plug-and-play solution.**
+
+This repository showcases the **approach and architecture** for building AI-powered QA systems. To adapt it for your use case, you'll need to:
+
+### What You'll Need to Provide
+- ✅ **Kernel Platform Access** - Active account with API access ([sign up](https://onkernel.com))
+- ✅ **Anthropic API Key** - For Claude AI functionality ([get key](https://console.anthropic.com))
+- ✅ **Your Test Environment** - E-commerce site or web application to test
+- ✅ **Custom Agent Tasks** - Modify the AI instructions for your specific QA scenarios
+
+### What You'll Need to Customize
+- 🔧 **Agent Task Instructions** - Current tasks are specific to our demo store
+- 🔧 **Product URLs** - Update to match your test environment
+- 🔧 **Validation Logic** - Adapt pass/fail criteria to your requirements
+- 🔧 **Expected Behaviors** - Modify based on what you're testing
+
+**Think of this as a blueprint, not a finished product.** The value is in seeing how AI agents, browser automation, and replay recording work together to create autonomous QA workflows.
 
 ## 📋 Prerequisites
 
@@ -86,30 +132,69 @@ uv run demo-qa-agent.py
 
 ## 🏗️ Architecture Overview
 
+### System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Demo Client Script                         │
+│                    (demo-qa-agent.py)                           │
+│                                                                 │
+│  • Invokes Kernel app via API                                   │
+│  • Polls for completion                                         │
+│  • Displays formatted results                                   │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+                         │ API Call
+                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Kernel Platform                             │
+│                   (Managed Browser)                             │
+│                                                                 │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              Kernel App (main.py)                        │   │
+│  │                                                          │   │
+│  │  ┌────────────────────────────────────────────────────┐  │   │
+│  │  │  Phase 1: Product Page QA                          │  │   │
+│  │  │  • Start replay recording                          │  │   │
+│  │  │  • AI Agent navigates to product URL               │  │   │
+│  │  │  • Evaluate image vs. title match                  │  │   │
+│  │  │  • Add item to cart                                │  │   │
+│  │  │  • Stop replay → Generate replay link              │  │   │
+│  │  └────────────────────────────────────────────────────┘  │   │
+│  │                         ↓                                │   │
+│  │  ┌────────────────────────────────────────────────────┐  │   │
+│  │  │  Phase 2: Cart Page QA                             │  │   │
+│  │  │  • Start new replay recording                      │  │   │
+│  │  │  • AI Agent navigates to cart                      │  │   │
+│  │  │  • Search for promotional banners                  │  │   │
+│  │  │  • Validate specific promotion text                │  │   │
+│  │  │  • Stop replay → Generate replay link              │  │   │
+│  │  └────────────────────────────────────────────────────┘  │   │
+│  │                         ↓                                │   │
+│  │  ┌────────────────────────────────────────────────────┐  │   │
+│  │  │  Return Results                                    │  │   │
+│  │  │  • Product assessment + replay link                │  │   │
+│  │  │  • Cart assessment + replay link                   │  │   │
+│  │  └────────────────────────────────────────────────────┘  │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ### Core Components
 
-- **main.py**: Kernel app with the `storefront-qa-agent` action
-- **session.py**: Custom browser session handling for CDP connections
-- **demo-qa-agent.py**: Client script that invokes the Kernel app and displays results
+| Component | Purpose | Key Technology |
+|-----------|---------|----------------|
+| [main.py](main.py) | Kernel app orchestrating the dual-agent QA workflow | Browser Use SDK, Claude Sonnet 4 |
+| [session.py](session.py) | Custom browser session with viewport handling for CDP connections | Browser Use + Playwright |
+| [demo-qa-agent.py](demo-qa-agent.py) | Client script that invokes the app and displays results | Kernel API, async polling |
 
-### How It Works
+### Technology Stack
 
-1. **Invocation**: Demo script calls the Kernel app via API
-2. **Browser Creation**: Kernel provisions a managed browser session
-3. **Phase 1**: AI agent navigates to product page, assesses image/title match, adds to cart
-4. **Phase 2**: AI agent navigates to cart, checks for promotional banners
-5. **Replay Generation**: Each phase creates a reviewable browser recording
-6. **Results**: Structured assessment data and replay links returned
-
-### AI Agent Flow
-
-```
-Product URL → AI Agent 1 → Product Assessment + Cart Addition
-     ↓
-Cart Page → AI Agent 2 → Promotional Banner Assessment
-     ↓
-Structured Results + Replay Links
-```
+- **AI Engine**: Claude Sonnet 4 (`claude-sonnet-4-20250514`)
+- **Browser Automation**: [Browser Use SDK](https://github.com/browser-use/browser-use) (~0.5.3)
+- **Orchestration**: [Kernel Platform](https://onkernel.com) (>=0.8.1)
+- **Browser Control**: Playwright (via Browser Use)
+- **Language**: Python 3.11+
 
 ## 🛠️ Customization Guide
 
@@ -132,42 +217,70 @@ The current agents are configured for specific scenarios. To customize:
    - Add new replay recording phases
    - Update the QAResult structure
 
-## 📺 Demo Walkthrough
+## 📺 Example Output
 
-When you run `uv run demo-qa-agent.py`, you'll see:
+When you run `uv run demo-qa-agent.py`, you'll see formatted results like this:
 
-1. **Invocation Start**: API call to Kernel platform
-2. **Progress Updates**: Real-time polling of execution status  
-3. **Results Display**: Formatted assessment verdicts
-4. **Replay Links**: Clickable URLs to review agent actions
+```
+============================================================
+🕵️ E-commerce QA Agent Demo
+============================================================
 
-## ⚠️ Limitations & Considerations
+🚀 Starting AI-powered quality assurance testing...
+📝 Testing URL: https://kernel-test-store-1.myshopify.com/products/short-sleeved-red-t-shirt
 
-### Customization Needs
-- **Store-Specific Logic**: Must adapt agent tasks to your store's layout and flow
-- **Product Catalog**: Update product URLs and expected content
-- **Validation Criteria**: Modify pass/fail logic for your QA requirements
-- **Authentication**: May need to handle different login/access patterns
+⏳ Invoking QA agents... (this may take 2-3 minutes)
+⏳ Invocation started (ID: inv_abc123)... polling for completion
 
-## 🔧 Troubleshooting
+============================================================
+📊 QA Results
+============================================================
+⏱️  Completed in 127.3 seconds
+🕐 Timestamp: 2025-09-30 14:23:45
 
-### Common Issues
+📋 Product Page Assessment
+----------------------------------------
+✅ VERDICT: PASS - The product image clearly shows a red short-sleeved
+t-shirt which accurately matches the product title description. The item
+was successfully added to the cart.
 
-**"Store password incorrect"**  
-- Ensure STORE_PASSWORD matches your Shopify development store password
-- Verify the store URL is accessible and password-protected
+📋 Cart Page Assessment
+----------------------------------------
+❌ VERDICT: FAIL - The cart page displays a '$15 off when you spend $75'
+promotional banner instead of the expected '$20 off when you spend $100'
+promotion.
 
-**"Agent task failed"**
-- Check that product URLs are valid and accessible
-- Verify your store layout matches the expected agent navigation flow
-- Review browser replay links to see where agents encountered issues
+📋 Browser Replay Links
+----------------------------------------
+Review the AI agent's actions by clicking these replay links:
 
-**"Deployment failed"**
-- Ensure all required environment variables are set
-- Check that your Kernel CLI is properly authenticated via `kernel login`
+🎬 Product Page Inspection:
+   https://replays.onkernel.com/replay/rpl_xyz789
 
-### Getting Help
+🎬 Cart Page Inspection:
+   https://replays.onkernel.com/replay/rpl_abc456
 
-- **Kernel Documentation**: [docs.onkernel.com](https://docs.onkernel.com)
-- **Browser Use SDK**: [https://github.com/browser-use/browser-use](https://github.com/browser-use/browser-use)
-- **Anthropic API**: [docs.anthropic.com](https://docs.anthropic.com)
+============================================================
+✨ Demo Complete! 🎉
+============================================================
+💡 Key Features Demonstrated:
+   • AI agents can autonomously navigate websites
+   • Automated quality assurance testing
+   • Visual replay links for review and debugging
+   • Structured assessment reporting
+```
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+Built with:
+- [Kernel](https://onkernel.com) - Browser orchestration and replay infrastructure
+- [Browser Use](https://github.com/browser-use/browser-use) - AI-powered browser automation
+- [Anthropic Claude](https://anthropic.com) - Advanced AI agent intelligence
+
+---
+
+**Ready to build autonomous QA agents?** Start by exploring the code in [main.py](main.py) to see how the dual-phase agent workflow is structured. 🚀

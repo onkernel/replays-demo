@@ -6,6 +6,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Kernel application that demonstrates automated QA testing for e-commerce websites using Browser Use SDK and AI agents. The application performs quality assurance checks on a Shopify test store, evaluating product page accuracy and cart promotional banners, then generates browser replay links for review.
 
+## Common Commands
+
+**Install dependencies:**
+```bash
+uv install  # preferred package manager
+# or: pip install -e .
+```
+
+**Deploy to Kernel:**
+```bash
+kernel deploy main.py --env-file .env
+```
+
+**Run demo client:**
+```bash
+uv run demo-qa-agent.py
+```
+
+**Required environment variables:**
+- `ANTHROPIC_API_KEY` - Claude API key for AI agents
+- `STORE_PASSWORD` - Password for test Shopify store
+- `KERNEL_API_KEY` - Required for demo script API calls
+
 ## Key Components
 
 - **main.py**: Core Kernel app with `storefront-qa-agent` action that orchestrates the two-phase QA testing workflow
@@ -40,24 +63,6 @@ Each phase records a separate browser replay for detailed review.
 - **requests** (>=2.25.1): HTTP client for API calls
 - **python-dotenv** (>=0.19.0): Environment variable management
 
-## Environment Variables
-
-Required environment variables:
-- **ANTHROPIC_API_KEY**: Claude API key for AI agent functionality
-- **STORE_PASSWORD**: Password for accessing the test Shopify store
-- **KERNEL_API_KEY**: Required for demo script API invocations
-
-## Deployment
-
-Deploy the Kernel app:
-```bash
-kernel deploy main.py --env-file .env
-```
-
-Run the demo client:
-```bash
-uv run demo-qa-agent.py
-```
 
 ## Technical Implementation Details
 
@@ -68,9 +73,10 @@ uv run demo-qa-agent.py
 
 ### Browser Session Management
 - Fixed 1024x786 viewport configuration across all browser contexts
-- Custom `BrowserSessionCustomResize` class handles CDP connection viewport issues
-- Includes fallback window resizing mechanisms and loading animations for blank pages
-- Proper browser session cleanup in finally blocks
+- Custom `BrowserSessionCustomResize` class in `session.py` overrides `_setup_viewports()` to fix CDP viewport handling issues in browser-use library
+- Implements fallback window resizing via JavaScript when CDP resize fails
+- Adds loading animation for blank pages to improve visual feedback
+- Proper browser session cleanup in finally blocks to prevent resource leaks
 
 ### Kernel Replays Integration
 - Sequential replay recording: product phase → cart phase
